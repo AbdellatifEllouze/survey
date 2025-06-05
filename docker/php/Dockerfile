@@ -7,7 +7,10 @@ ARG APP_DIR="/var/www/app"
 RUN apk add --update --no-cache ${PHPIZE_DEPS} git curl nodejs npm
 
 # ZIP module
-RUN apk add --no-cache libzip-dev && docker-php-ext-configure zip && docker-php-ext-install zip
+RUN apk add --no-cache libzip-dev && \
+    docker-php-ext-configure zip && \
+    docker-php-ext-install zip pdo pdo_mysql
+
 
 # Imagick module
 RUN apk add --no-cache libgomp imagemagick imagemagick-dev && \

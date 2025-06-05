@@ -26,9 +26,15 @@ php:
 composer-install:
 	$(COMPOSE) exec $(PHP_CONTAINER) composer install
 
+# 🧱 Doctrine Migrations
+migrate:
+	$(COMPOSE) exec $(PHP_CONTAINER) php bin/console doctrine:migrations:migrate --no-interaction
+
+
 composer-update:
 	$(COMPOSE) exec $(PHP_CONTAINER) composer update
 
 # 🧪 Setup all
 install:
 	$(MAKE) composer-install
+	$(MAKE) migrate
