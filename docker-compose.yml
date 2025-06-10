@@ -19,13 +19,12 @@ services:
       context: ./front
       dockerfile: Dockerfile
     volumes:
-      - './front:/app'
-    working_dir: /app
-    command: ["npm", "run", "start"]
+      - './front:/var/www/app'
     ports:
       - "3000:3000"
     depends_on:
       - survey-php
+      
   survey-php:
     container_name: survey-php
     build: ./docker/php

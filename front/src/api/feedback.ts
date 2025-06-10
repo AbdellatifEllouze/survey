@@ -1,11 +1,11 @@
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { FeedbackData } from '../types/feedback';
 
-export const useSubmitFeedback = () =>
-  useMutation({
-    mutationFn: async (data: FeedbackData) => {
-      const res = await axios.post('/api/feedback', data);
-      return res.data;
-    },
+export async function submitFeedbackToAPI(feedback: FeedbackData) {
+  const response = await fetch('http://localhost:8086/api/feedbacks/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({...feedback }),
   });
+  if (!response.ok) throw new Error('Failed to submit feedback');
+  return response.json();
+}

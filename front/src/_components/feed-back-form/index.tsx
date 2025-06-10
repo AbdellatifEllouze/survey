@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   Button,
@@ -8,13 +8,6 @@ import {
   Stack,
 } from '@mui/material';
 import { useFeedback } from './useFeedback';
-
-interface FeedbackData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  comment: string;
-}
 
 const FeedbackForm: React.FC = () => {
   const { formData, handleSubmit, handleChange } = useFeedback();

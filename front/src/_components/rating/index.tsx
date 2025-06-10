@@ -3,24 +3,16 @@ import { Box, Typography, Rating, Grid, Button } from '@mui/material';
 import {Star} from '@mui/icons-material';
 import { useRating } from './useRating';
 import { ratingStyles } from './style';
-import { useNavigate } from 'react-router-dom';
+
 const RatingComponent: React.FC = () => {
-const navigate = useNavigate();
-const {  value, setValue, hover, setHover } = useRating();
-const submitRating = () => {
-    navigate('/feedback')
-    // alert(`Vous avez noté: ${value}/10`);
-    setValue(0);
-    setHover(-1);
-};
+const {  value, setValue, hover, setHover, submitRating } = useRating();
 
   return (
-   <Grid container spacing={2} flexDirection={"column"} justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
+   <Grid container spacing={2} flexDirection={"column"} justifyContent="center" alignItems="center" height={'100vh'}>
         <Box
             sx={ratingStyles.container}
         >
             <Typography variant="h6">Would you recommend our service to others?</Typography>
-
             <Rating
                 name="rating-sur-10"
                 value={value}
@@ -40,7 +32,7 @@ const submitRating = () => {
             variant="contained"
             color="primary"
             onClick={submitRating}
-            style={{ marginTop: '20px' }}
+            style={ratingStyles.button}
         >
             Soumettre
         </Button>

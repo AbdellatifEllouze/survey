@@ -1,15 +1,35 @@
 import { useState } from 'react';
 import { FeedbackData } from '../../types/feedback';
-
-
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { submitFeedbackToAPI } from '../../api/feedback';
 
 export function useFeedback() {
+
+    const navigate = useNavigate();
     const [formData, setFormData] = useState<FeedbackData>({
         firstName: '',
         lastName: '',
         email: '',
         comment: '',
     });
+
+  const { mutate: submitFeedback, isPending, error } = useMutation({
+    mutationFn: (formData: FeedbackData) => submitFeedbackToAPI(formData),
+    onSuccess: () => {
+      navigate('/'); // Navigate after successful submission
+      setFormData({
+        firstName: '', 
+        lastName: '',
+        email: '',
+        comment: '',
+      });
+    },
+    onError: (err) => {
+      console.error('Error submitting rating:', err);
+      // Optionally show an error message
+    },
+  });
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,8 +43,7 @@ export function useFeedback() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Feedback envoyé :', formData);
-        // TODO: send to backend (API POST)
+        submitFeedback(formData);
     };
 
     return {
@@ -32,5 +51,7 @@ export function useFeedback() {
         handleChange,
         handleSubmit,
         setFormData,
+        isSubmitting: isPending, // Useful for UI loading states
+        error, // Error handling
     };
 }
