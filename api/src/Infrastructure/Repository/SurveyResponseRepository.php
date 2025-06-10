@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Repository;
 
-use App\Entity\SurveyResponse;
+use App\Domain\Entity\SurveyResponse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Domain\Port\SurveyResponseRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SurveyResponseRepository extends ServiceEntityRepository
+class SurveyResponseRepository extends ServiceEntityRepository implements SurveyResponseRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

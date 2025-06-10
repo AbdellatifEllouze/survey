@@ -1,17 +1,17 @@
 <?php
 
-namespace App\UseCase;
+namespace App\Application\UseCase;
 
-use App\Dto\FeedbackInput;
-use App\Entity\Feedback;
-use App\Mapper\FeedbackMapper;
-use App\Repository\FeedbackRepository;
+use App\Application\Dto\FeedbackInput;
+use App\Domain\Entity\Feedback;
+use App\Application\Mapper\FeedbackMapper;
+use App\Domain\Port\FeedbackRepositoryInterface;
 
 final readonly class CreateFeedback
 {
     public function __construct(
         private FeedbackMapper $feedbackMapper,
-        private FeedbackRepository $feedbackRepository,
+        private FeedbackRepositoryInterface $feedbackRepository,
     ) {}
 
     public function execute(FeedbackInput $feedbackInput): Feedback

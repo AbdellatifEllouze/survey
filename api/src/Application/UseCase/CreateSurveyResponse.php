@@ -1,17 +1,17 @@
 <?php
 
-namespace App\UseCase;
+namespace App\Application\UseCase;
 
-use App\Dto\SurveyResponseInput;
-use App\Entity\SurveyResponse;
-use App\Mapper\SurveyResponseMapper;
-use App\Repository\SurveyResponseRepository;
+use App\Application\Dto\SurveyResponseInput;
+use App\Domain\Entity\SurveyResponse;
+use App\Application\Mapper\SurveyResponseMapper;
+use App\Domain\Port\SurveyResponseRepositoryInterface;
 
 final readonly class CreateSurveyResponse
 {
     public function __construct(
         private SurveyResponseMapper $surveyResponseMapper,
-        private SurveyResponseRepository $surveyResponseRepository,
+        private SurveyResponseRepositoryInterface $surveyResponseRepository,
     ) {}
 
     public function execute(SurveyResponseInput $surveyResponseInput): SurveyResponse

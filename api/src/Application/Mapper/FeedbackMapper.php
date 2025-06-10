@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Mapper;
+namespace App\Application\Mapper;
 
-use App\Dto\FeedbackInput;
-use App\Entity\Feedback;
+use App\Application\Dto\FeedbackInput;
+use App\Domain\Entity\Feedback;
 
 class FeedbackMapper
 {

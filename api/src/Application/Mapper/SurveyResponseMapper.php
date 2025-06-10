@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Mapper;
+namespace App\Application\Mapper;
 
-use App\Dto\SurveyResponseInput;
-use App\Entity\SurveyResponse;
+use App\Application\Dto\SurveyResponseInput;
+use App\Domain\Entity\SurveyResponse;
 
 class SurveyResponseMapper
 {

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Infrastructure\Repository\FeedbackRepository;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 #[ORM\HasLifecycleCallbacks]
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: FeedbackRepository::class)]
 #[ORM\Table(name: 'feedbacks')]
 class Feedback
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Infrastructure\Controller;
 
-use App\Dto\FeedbackInput;
-use App\Entity\Feedback;
-use App\UseCase\CreateFeedback;
+use App\Application\Dto\SurveyResponseInput;
+use App\Domain\Entity\SurveyResponse;
+use App\Application\UseCase\CreateSurveyResponse;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,18 +14,18 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-#[OA\Tag(name: 'Feedback')]
-#[Route('/api/feedbacks')]
-class FeedbackController extends AbstractController
+#[OA\Tag(name: 'Survey response')]
+#[Route('/api/survey-responses')]
+class SurveyResponseController extends AbstractController
 {
     #[OA\Post(
-        description: 'Create Feedback',
-        requestBody: new OA\RequestBody(attachables: [new Model(type: FeedbackInput::class)]),
+        description: 'Create Survey response',
+        requestBody: new OA\RequestBody(attachables: [new Model(type: SurveyResponseInput::class)]),
         responses: [
             new OA\Response(
                 response: Response::HTTP_CREATED,
-                description: 'Feedback created',
-                content: new Model(type: Feedback::class)
+                description: 'Survey response created',
+                content: new Model(type: SurveyResponse::class)
             ),
             new OA\Response(
                 response: Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -45,16 +45,16 @@ class FeedbackController extends AbstractController
             ),
         ]
     )]
-    #[Route('/', name: 'feedbacks_create', methods: ['POST'])]
+    #[Route('/', name: 'survey_response_create', methods: ['POST'])]
     public function create(
-        #[MapRequestPayload] FeedbackInput $feedbackInput,
-        CreateFeedback $createFeedback,
+        #[MapRequestPayload] SurveyResponseInput $surveyResponseInput,
+        CreateSurveyResponse $createSurveyResponse,
         SerializerInterface $serializer,
     ): JsonResponse {
-        $feedback = $createFeedback->execute($feedbackInput);
+        $surveyResponse = $createSurveyResponse->execute($surveyResponseInput);
 
         return new JsonResponse(
-            $serializer->normalize($feedback),
+            $serializer->normalize($surveyResponse),
             Response::HTTP_CREATED,
         );
     }

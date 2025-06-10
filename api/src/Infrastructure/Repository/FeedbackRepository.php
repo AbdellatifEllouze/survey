@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Repository;
 
-use App\Entity\Feedback;
+use App\Domain\Entity\Feedback;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Domain\Port\FeedbackRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
-class FeedbackRepository extends ServiceEntityRepository
+class FeedbackRepository extends ServiceEntityRepository implements FeedbackRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
