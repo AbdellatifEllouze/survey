@@ -7,6 +7,7 @@ import {
   Paper,
   Stack,
 } from '@mui/material';
+import { useFeedback } from './useFeedback';
 
 interface FeedbackData {
   firstName: string;
@@ -16,27 +17,7 @@ interface FeedbackData {
 }
 
 const FeedbackForm: React.FC = () => {
-  const [formData, setFormData] = useState<FeedbackData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    comment: '',
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Feedback envoyé :', formData);
-    // TODO: send to backend (API POST)
-  };
-
+  const { formData, handleSubmit, handleChange } = useFeedback();
   return (
     <Paper
       elevation={4}
