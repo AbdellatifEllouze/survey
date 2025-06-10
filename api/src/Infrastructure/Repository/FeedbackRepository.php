@@ -21,4 +21,9 @@ class FeedbackRepository extends ServiceEntityRepository implements FeedbackRepo
 
         return $feedback;
     }
+
+    public function getAll(): array
+    {
+        return $this->findAll();
+    }
 }

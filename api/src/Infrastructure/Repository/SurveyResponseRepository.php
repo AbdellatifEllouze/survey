@@ -21,4 +21,9 @@ class SurveyResponseRepository extends ServiceEntityRepository implements Survey
 
         return $surveyResponse;
     }
+
+    public function getAll(): array
+    {
+        return $this->findAll();
+    }
 }

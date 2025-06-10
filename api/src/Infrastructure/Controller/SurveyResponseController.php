@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Controller;
 
 use App\Application\Dto\SurveyResponseInput;
+use App\Application\UseCase\GetAllSurveyResponse;
 use App\Domain\Entity\SurveyResponse;
 use App\Application\UseCase\CreateSurveyResponse;
 use Nelmio\ApiDocBundle\Attribute\Model;
@@ -56,6 +57,40 @@ class SurveyResponseController extends AbstractController
         return new JsonResponse(
             $serializer->normalize($surveyResponse),
             Response::HTTP_CREATED,
+        );
+    }
+
+    #[OA\Get(
+        description: 'Get all Survey response',
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: 'List of Survey response',
+                content: new OA\JsonContent(
+                    type: 'array',
+                    items: new OA\Items(ref: new Model(type: SurveyResponse::class)),
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_INTERNAL_SERVER_ERROR,
+                description: 'Application error',
+                content: new OA\JsonContent(
+                    properties: [new OA\Property(property: 'error', properties: [new OA\Property(property: 'code', type: 'int'), new OA\Property(property: 'message', type: 'string')], type: 'object')],
+                    type: 'object',
+                )
+            ),
+        ]
+    )]
+    #[Route('/', name: 'survey_response_get_all', methods: ['GET'])]
+    public function get(
+        GetAllSurveyResponse $getAllSurveyResponse,
+        SerializerInterface $serializer,
+    ): JsonResponse {
+        $surveyResponses = $getAllSurveyResponse->execute();
+
+        return new JsonResponse(
+            $serializer->normalize($surveyResponses),
+            Response::HTTP_OK,
         );
     }
 }

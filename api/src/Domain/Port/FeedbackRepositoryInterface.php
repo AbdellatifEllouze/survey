@@ -7,4 +7,5 @@ use App\Domain\Entity\Feedback;
 interface FeedbackRepositoryInterface
 {
     public function save(Feedback $feedback): Feedback;
+    public function getAll(): array;
 }
